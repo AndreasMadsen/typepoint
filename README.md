@@ -1,4 +1,4 @@
-#mariastream
+#typecast
 
 > Typecast properties in object streams
 
