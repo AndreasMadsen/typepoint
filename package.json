@@ -1,7 +1,7 @@
 {
   "name": "typepoint",
   "description": "Typecast properties in object streams",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Andreas Madsen <amwebdk@gmail.com>",
   "main": "typepoint.js",
   "scripts": {
@@ -24,9 +24,5 @@
     "endpoint": "0.4.x",
     "startpoint": "0.3.x"
   },
-  "license": "MIT",
-  "engines": {
-    "node": "0.11 || 0.10",
-    "npm": "1"
-  }
+  "license": "MIT"
  }

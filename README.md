@@ -18,10 +18,12 @@ npm install typepoint
 // The only thing to note, is that `Date` is special since the new operator is
 // used here without your involvement. This is because `Date` simply returns a
 // string.
-var conveter = typepoint({id: Number, time: Date});
+// You can also use non-function, they works as constants and overwrites any
+// existing or non-existing value.
+var conveter = typepoint({id: Number, time: Date, const: 10});
 
-conveter.write({ id: '1', time: 0, other: 'exists' });
-conveter.read() // { id: 1, time: new Date(0), other: 'exists' };
+conveter.write({ id: '1', time: 0, other: 'exists'});
+conveter.read() // { id: 1, time: new Date(0), other: 'exists', const: 10 };
 ```
 
 ##License

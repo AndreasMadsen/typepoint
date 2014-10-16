@@ -22,22 +22,36 @@ function Typepoint(rules) {
   }
 
   this._rules = rules;
-  this._keys = Object.keys(rules);
+  this._funcKeys = [];
+  this._constKeys = [];
 
-  // Date is special
-  for (var i = 0, l = this._keys.length; i < l; i++) {
-    if (this._rules[this._keys[i]] === Date) {
-      this._rules[this._keys[i]] = newDate; 
+  Object.keys(rules).forEach(function (key) {
+    var rule = this._rules[key];
+
+    if (typeof rule !== 'function') {
+      this._constKeys.push(key);
+    } else {
+      this._funcKeys.push(key);
+
+      // Date is special
+      if (rule === Date) this._rules[key] = newDate;
     }
-  }
+  }, this);
 }
 util.inherits(Typepoint, stream.Transform);
 module.exports = Typepoint;
 
 Typepoint.prototype._transform = function (object, encoding, done) {
-  for (var i = 0, l = this._keys.length; i < l; i++) {
-    var key = this._keys[i];
+  var i, l, key;
+
+  for (i = 0, l = this._funcKeys.length; i < l; i++) {
+    key = this._funcKeys[i];
     object[key] = this._rules[key](object[key]);
+  }
+
+  for (i = 0, l = this._constKeys.length; i < l; i++) {
+    key = this._constKeys[i];
+    object[key] = this._rules[key];
   }
 
   this.push(object);
